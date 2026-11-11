@@ -13,10 +13,10 @@ Shipped: the AfterHours agent now gets graded.
 Each call is checked against the real next open.
 So far: [W] right / [L] wrong across [N] calls. Best read: [TICKER] [date].
 Humans who took the other side: [K] wallets.
-[app link] @buildonbase
+afterhours-base.netlify.app @buildonbase
 
 **Day 9 — community vs agent**
 [N] wallets have now posted calls against the AfterHours agent on Base.
 Agent hit rate: [x]%. Humans: [y]%.
 Want in? Free testnet gas, one click, no money at stake 👇
-[app link] @buildonbase
+afterhours-base.netlify.app @buildonbase

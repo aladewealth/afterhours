@@ -43,6 +43,6 @@ Humans vs the agent. We'll keep score.
 Zero paid APIs: Coinbase Tokenized Stocks API, Base public RPC, DexScreener, Next.js, viem, Foundry.
 
 Demo 👇 [Loom link]
-App 👇 [app link]
+App 👇 afterhours-base.netlify.app
 
 Building this for Base Stocks Maxxing. Informational only, not advice. @buildonbase @coinbase

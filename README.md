@@ -14,7 +14,7 @@ Built for **Base Stocks Maxxing — Agentic Stock Finance**. Informational only:
 | --- | --- |
 | `AfterHoursBoard` (Base Sepolia, verified) | [`0xAda77BA7C7CF22e60426D117C053C075cA18D431`](https://sepolia.basescan.org/address/0xAda77BA7C7CF22e60426D117C053C075cA18D431) · [Blockscout](https://base-sepolia.blockscout.com/address/0xAda77BA7C7CF22e60426D117C053C075cA18D431) · [Sourcify](https://repo.sourcify.dev/84532/0xAda77BA7C7CF22e60426D117C053C075cA18D431) |
 | Agent wallet | [`0x0441Fe250E71fDdC650976Dd13b041fD7abE2cc9`](https://base-sepolia.blockscout.com/address/0x0441Fe250E71fDdC650976Dd13b041fD7abE2cc9) |
-| Web app | see `docs/HOSTING.md` |
+| Web app (live) | **https://afterhours-base.netlify.app** — hosted on Netlify, read-only; the agent posts from its own runner every 30 min |
 
 ## How the agent decides
 

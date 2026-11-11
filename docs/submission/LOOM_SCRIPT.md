@@ -1,6 +1,6 @@
 # Loom demo script — 2 minutes
 
-Record the browser full-screen on the AfterHours app, with BaseScan open in a second tab. Best recorded **after 10 PM WAT (4 PM ET) or at a weekend**, when the agent is making gap calls rather than "converge" calls.
+Record the browser full-screen on the AfterHours app (https://afterhours-base.netlify.app), with BaseScan open in a second tab. Best recorded **after 10 PM WAT (4 PM ET) or at a weekend**, when the agent is making gap calls rather than "converge" calls.
 
 | Time | Show | Say |
 | --- | --- | --- |

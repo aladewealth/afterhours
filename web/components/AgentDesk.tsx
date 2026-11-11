@@ -26,6 +26,9 @@ export function AgentDesk({ state, tickers }: { state: AgentState; tickers: stri
   const { report, feed, mode } = state;
   const agentPosts = feed.calls.filter((c) => c.byAgent).length;
   const communityPosts = feed.calls.length - agentPosts;
+  const lastAgent = feed.calls.find((c) => c.byAgent);
+  // eslint-disable-next-line react-hooks/purity
+  const agentActive = mode === "onchain" || (lastAgent ? Date.now() - Date.parse(lastAgent.postedAt) < 24 * 3600_000 : false);
 
   return (
     <section id="agent" className="grid gap-4 lg:grid-cols-[1.15fr_1fr]">
@@ -40,8 +43,11 @@ export function AgentDesk({ state, tickers }: { state: AgentState; tickers: stri
             <h2 className="text-sm font-medium text-white">AfterHours Agent · current read</h2>
           </div>
           <div className="flex flex-wrap items-center gap-2 text-[11px]">
-            <span className={`rounded-full px-2 py-0.5 font-medium ${mode === "onchain" ? "bg-[var(--up-dim)] text-[var(--up)]" : "bg-[var(--amber-dim)] text-[var(--amber)]"}`}>
-              {mode === "onchain" ? "Posting onchain" : "Read-only on this host"}
+            <span
+              title={mode === "onchain" ? "This server signs and posts the agent's calls." : "The agent signs from its own runner every 30 min; this page only reads the chain."}
+              className={`rounded-full px-2 py-0.5 font-medium ${agentActive ? "bg-[var(--up-dim)] text-[var(--up)]" : "bg-[var(--amber-dim)] text-[var(--amber)]"}`}
+            >
+              {mode === "onchain" ? "Posting onchain" : agentActive ? "Posting onchain · every 30 min" : "Agent paused"}
             </span>
             <span className="rounded-full bg-white/5 px-2 py-0.5 text-[var(--muted)]">
               {report.llm.enabled && !report.llm.error ? `LLM notes · ${report.llm.model}` : "Rule engine (no API key)"}

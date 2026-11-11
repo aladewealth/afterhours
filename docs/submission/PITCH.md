@@ -19,6 +19,7 @@ The agent perceives (Coinbase Tokenized Stocks API + Base pool state), decides (
 Coinbase Tokenized Stocks API (no key) · Aerodrome Slipstream on Base · DexScreener · Next.js 16 · viem · Foundry · Base Sepolia. Zero paid APIs.
 
 ## Proof
+- Live app: https://afterhours-base.netlify.app
 - Contract: https://sepolia.basescan.org/address/0xAda77BA7C7CF22e60426D117C053C075cA18D431 (verified on Sourcify + Blockscout)
 - Agent wallet: https://base-sepolia.blockscout.com/address/0x0441Fe250E71fDdC650976Dd13b041fD7abE2cc9
 - First agent calls: #1 TSLAc, #2 CRCLc, #3 MSTRc (11 Nov 2026)
