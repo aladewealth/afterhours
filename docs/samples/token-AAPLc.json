@@ -1,0 +1,15 @@
+{
+  "contract_address": "0xb200000000000000000000C2e324d24d7eEcd1fb",
+  "symbol": "AAPLc",
+  "name": "Apple Inc.",
+  "decimals": 8,
+  "icon_url": "https://metadata.coinbase.com/equity_icons/873819f4b14efe44b94abecbc8e8864d2998163abd0ca55b449ee6eb07d0d94c.png",
+  "total_supply": 6248.40361951,
+  "isin": "US0378331005",
+  "multiplier": 1,
+  "nav_price": 352.82,
+  "nav_price_updated_at": "2026-11-11T14:33:14Z",
+  "description": "About Apple Inc. (Coinbase Tokenized Stock) (AAPLc)\n\nApple Inc. (Coinbase Tokenized Stock) is an onchain certificate that provides economic exposure to shares of Apple Inc. through a tokenized security issued by Coinbase Onchain SPV Ltd in the Abu Dhabi Global Market (ADGM).\n\nEach token initially represents a 1:1 beneficial interest in shares held in a segregated custody account with a regulated broker-dealer and custodian. The applicable share-to-token ratio may change over time to reflect reinvested distributions, fees, taxes, corporate actions, and other adjustments.\n\nThe token can be held and transferred through supported blockchain networks and used in decentralized finance markets. Dividends and other distributions received on the underlying shares are generally reinvested, after applicable taxes, fees, and expenses, with the resulting economic benefit reflected through an adjustment to the share-to-token ratio.\n\nWhat Is Apple Inc. (Coinbase Tokenized Stock)?\n\nApple Inc. (Coinbase Tokenized Stock) is part of Coinbase\u2019s onchain capital-markets infrastructure, designed to represent traditional financial instruments as regulated digital securities.\n\nThe token is a certificate over shares rather than a direct investment in Apple Inc. Each token represents a proportional beneficial interest in the pool of underlying shares and related property held on trust by Coinbase Onchain SPV Ltd. The underlying shares are held in segregated custody, while Onchain Marketplace Ltd operates the tokenization infrastructure and maintains the definitive legal ownership register in its capacity as a Central Securities Depositary.\n\nAuthorized Participants create tokens by delivering the corresponding underlying shares or subscription value. Eligible holders who satisfy applicable vesting, identity-verification, sanctions, and compliance requirements may redeem tokens for the underlying shares or through another supported settlement method.",
+  "first_mint_date": "2026-08-12T12:54:19Z",
+  "adgm_isin": "AE000A4AV8C6"
+}
