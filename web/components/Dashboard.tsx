@@ -1,6 +1,8 @@
 import type { FeedState, Snapshot, StockRow } from "@/lib/types";
 import type { AgentState } from "@/lib/agentState";
+import type { BoardStats } from "@/lib/board";
 import { AgentDesk } from "./AgentDesk";
+import { UsageStats } from "./UsageStats";
 import { formatAge, formatCompact, formatIsoWat, formatPct, formatUsd } from "@/lib/format";
 
 function premiumClass(value?: number): string {
@@ -112,7 +114,7 @@ function Row({ row }: { row: StockRow }) {
   );
 }
 
-export function Dashboard({ snapshot, agent }: { snapshot: Snapshot; agent?: AgentState }) {
+export function Dashboard({ snapshot, agent, stats }: { snapshot: Snapshot; agent?: AgentState; stats: BoardStats }) {
   const { market, rows, otherMinted, warnings } = snapshot;
   const premiums = rows.map((r) => r.premiumPct).filter((v): v is number => v !== undefined);
   const widest = premiums.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a), 0);
@@ -160,6 +162,8 @@ export function Dashboard({ snapshot, agent }: { snapshot: Snapshot; agent?: Age
           </div>
         ))}
       </section>
+
+      <UsageStats stats={stats} />
 
       {agent ? (
         <AgentDesk state={agent} tickers={rows.map((r) => r.symbol)} />

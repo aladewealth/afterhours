@@ -1,7 +1,9 @@
 import { createPublicClient, createWalletClient, http, type Hex } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { baseSepolia } from "viem/chains";
+import { DATA_SUFFIX } from "./attribution";
 import {
+  BASE_SEPOLIA_CHAIN_ID,
   BASE_SEPOLIA_LOGS_RPC,
   BASE_SEPOLIA_RPC,
   BOARD_ABI,
@@ -29,6 +31,21 @@ export type BoardFeed = {
   subscribers: number;
   subscriptions: number;
   uniqueWallets: number;
+  error?: string;
+};
+
+export type BoardStats = {
+  ok: boolean;
+  uniqueWallets: number;
+  totalCalls: number;
+  agentCalls: number;
+  communityCalls: number;
+  subscribers: number;
+  subscriptions: number;
+  board?: `0x${string}`;
+  chain: "base-sepolia";
+  chainId: number;
+  updatedAt: string;
   error?: string;
 };
 
@@ -118,6 +135,25 @@ export async function readBoardFeed(force = false): Promise<BoardFeed> {
   }
 }
 
+export async function getBoardStats(force = false): Promise<BoardStats> {
+  const feed = await readBoardFeed(force);
+  const agentCalls = feed.calls.filter((c) => c.byAgent).length;
+  return {
+    ok: feed.ok,
+    uniqueWallets: feed.uniqueWallets,
+    totalCalls: feed.calls.length,
+    agentCalls,
+    communityCalls: feed.calls.length - agentCalls,
+    subscribers: feed.subscribers,
+    subscriptions: feed.subscriptions,
+    board: BOARD_ADDRESS,
+    chain: "base-sepolia",
+    chainId: BASE_SEPOLIA_CHAIN_ID,
+    updatedAt: new Date().toISOString(),
+    error: feed.error,
+  };
+}
+
 export type PostResult = { ticker: string; direction: number; status: "posted" | "skipped" | "failed"; txHash?: string; reason?: string };
 
 /** Post the agent's top calls onchain. Skips a ticker the agent already called the same way in the last 6 hours. */
@@ -125,7 +161,12 @@ export async function postAgentCalls(calls: AgentCall[], maxPosts = 3): Promise<
   const key = process.env.AGENT_PRIVATE_KEY as Hex | undefined;
   if (!key || !BOARD_ADDRESS) return calls.map((c) => ({ ticker: c.ticker, direction: c.direction, status: "skipped", reason: "read-only mode" }));
   const account = privateKeyToAccount(key);
-  const wallet = createWalletClient({ account, chain: baseSepolia, transport: http(BASE_SEPOLIA_RPC) });
+  const wallet = createWalletClient({
+    account,
+    chain: baseSepolia,
+    transport: http(BASE_SEPOLIA_RPC),
+    ...(DATA_SUFFIX ? { dataSuffix: DATA_SUFFIX } : {}),
+  });
   const feed = await readBoardFeed(true);
   const sixHoursAgo = Date.now() - 6 * 3600_000;
   const results: PostResult[] = [];

@@ -2,8 +2,8 @@
 
 **Live: https://afterhours-base.netlify.app** (Netlify project `afterhours-base`, Builds' account aladebuilds@gmail.com). Deployed 11 Nov 2026, 17:03 WAT; updated 17:06 WAT.
 
-- Full Next.js app incl. server routes: `/api/snapshot`, `/api/agent` (verified 200 with live data), `/api/agent/run` (dry-run on Netlify).
-- **No secrets uploaded.** The site is read-only; `AGENT_PRIVATE_KEY` stays on the box and `scripts/agent-loop.sh` posts calls every 30 min. No Netlify env vars are needed (contract address is in code; public RPC defaults).
+- Full Next.js app incl. server routes: `/api/snapshot`, `/api/agent` (verified 200 with live data), `/api/agent/run` (dry-run on Netlify), `/api/stats` (onchain traction).
+- **No secrets uploaded.** The site is read-only; `AGENT_PRIVATE_KEY` stays on the box and `scripts/agent-loop.sh` posts calls every 30 min. No Netlify env vars are required (contract address and the agent Builder Code `bc_tdrm1ha8` are in code; public RPC defaults). Optional: set `NEXT_PUBLIC_BASE_BUILDER_CODE` on Netlify after registering a project on [dashboard.base.org](https://dashboard.base.org) — it is a public identifier, not a secret.
 - Visitor access: Netlify's account default was "Netlify login required" (HTTP 401). It was turned off (`sso_login: false`) so the site is public.
 - Redeploy from `web/`: move `.env.local` aside first so the testnet key never gets bundled, then `npx netlify-cli deploy --prod`.
 

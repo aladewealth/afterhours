@@ -1,6 +1,7 @@
 import { Dashboard } from "@/components/Dashboard";
 import { buildSnapshot } from "@/lib/snapshot";
 import { buildAgentState, type AgentState } from "@/lib/agentState";
+import { getBoardStats, type BoardStats } from "@/lib/board";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +23,8 @@ export default async function Home() {
     }
   }
 
+  const stats: BoardStats = await getBoardStats();
+
   if (!snapshot) {
     return (
       <main className="mx-auto flex min-h-screen max-w-2xl flex-col justify-center px-6">
@@ -37,7 +40,7 @@ export default async function Home() {
 
   return (
     <main className="flex-1">
-      <Dashboard snapshot={snapshot} agent={agent} />
+      <Dashboard snapshot={snapshot} agent={agent} stats={stats} />
     </main>
   );
 }

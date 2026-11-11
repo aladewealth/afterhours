@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createWalletClient, custom, type EIP1193Provider } from "viem";
 import { baseSepolia } from "viem/chains";
+import { DATA_SUFFIX } from "@/lib/attribution";
 import { BOARD_ABI } from "@/lib/contracts";
 
 declare global {
@@ -35,10 +36,11 @@ export function CallComposer({ board, tickers }: { board: string; tickers: strin
         await wallet.addChain({ chain: baseSepolia });
         await wallet.switchChain({ id: baseSepolia.id });
       }
+      const suffix = DATA_SUFFIX ? { dataSuffix: DATA_SUFFIX } : {};
       const hash =
         action === "postCall"
-          ? await wallet.writeContract({ account, address: board as `0x${string}`, abi: BOARD_ABI, functionName: "postCall", args: [ticker, direction, note.slice(0, 280)] })
-          : await wallet.writeContract({ account, address: board as `0x${string}`, abi: BOARD_ABI, functionName: "subscribe", args: [ticker] });
+          ? await wallet.writeContract({ account, address: board as `0x${string}`, abi: BOARD_ABI, functionName: "postCall", args: [ticker, direction, note.slice(0, 280)], ...suffix })
+          : await wallet.writeContract({ account, address: board as `0x${string}`, abi: BOARD_ABI, functionName: "subscribe", args: [ticker], ...suffix });
       setStatus({ kind: "ok", text: action === "postCall" ? "Call posted. It shows in the feed after a refresh." : `Subscribed to ${ticker}.`, hash });
     } catch (err) {
       const msg = err instanceof Error ? err.message.split("\n")[0] : "Transaction failed";
