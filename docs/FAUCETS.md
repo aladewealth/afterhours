@@ -1,4 +1,31 @@
-# Base Sepolia faucets (phase 1.5)
+# Base Sepolia faucets
+
+## ✅ What worked (11 Nov 2026, 16:48 WAT)
+
+**A2AWire agent faucet — no login, no captcha, curl-able.** 0.0005 Base Sepolia ETH per address per 24h.
+
+```bash
+curl -sS -X POST https://a2awire.com/agents/faucet/invoke \
+  -H "Content-Type: application/json" \
+  -d '{"task":"request_testnet_eth","input":{"address":"0xYOUR_ADDRESS"}}'
+```
+
+Funded the deployer in tx `0xea86f2134d779c1f3be1a425f519ad268f36e360728b16c451a728e60ee0742b`. Deploying `AfterHoursBoard` cost ~0.000002 ETH and each agent `postCall` costs well under 0.000001 ETH (gas ~0.006 gwei), so 0.0005 ETH covers hundreds of agent calls.
+
+Tried and dead: Lumina faucet (`lumina-api-production-ac85.up.railway.app`, “Application not found”), pow.zalalena.com (hCaptcha required before mining).
+
+## For Builds' MetaMask (0x852b3bDBb2e68eBF41fCF304E4128f4E82897bfc), from a phone
+
+1. **Same A2AWire faucet** — any curl/HTTP client, or ask the agent to call it for your address. Easiest.
+2. **Coinbase CDP faucet** — https://portal.cdp.coinbase.com/products/faucet (free CDP account, 0.0001 ETH per click, up to 0.1/day).
+3. **Google Cloud Web3 faucet** — https://cloud.google.com/application/web3/faucet/base/sepolia (Google sign-in + captcha).
+4. **Superchain faucet** — https://console.optimism.io/faucet/ (GitHub sign-in).
+
+Then add Base Sepolia to MetaMask (chain 84532, RPC https://sepolia.base.org) — the AfterHours “Post call” button does this for you.
+
+---
+
+# Earlier notes (phase 1.5)
 
 Deployer (public, testnet-only): `0x0441Fe250E71fDdC650976Dd13b041fD7abE2cc9`
 

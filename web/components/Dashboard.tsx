@@ -1,4 +1,6 @@
 import type { FeedState, Snapshot, StockRow } from "@/lib/types";
+import type { AgentState } from "@/lib/agentState";
+import { AgentDesk } from "./AgentDesk";
 import { formatAge, formatCompact, formatIsoWat, formatPct, formatUsd } from "@/lib/format";
 
 function premiumClass(value?: number): string {
@@ -110,7 +112,7 @@ function Row({ row }: { row: StockRow }) {
   );
 }
 
-export function Dashboard({ snapshot }: { snapshot: Snapshot }) {
+export function Dashboard({ snapshot, agent }: { snapshot: Snapshot; agent?: AgentState }) {
   const { market, rows, otherMinted, warnings } = snapshot;
   const premiums = rows.map((r) => r.premiumPct).filter((v): v is number => v !== undefined);
   const widest = premiums.reduce((a, b) => (Math.abs(b) > Math.abs(a) ? b : a), 0);
@@ -124,11 +126,12 @@ export function Dashboard({ snapshot }: { snapshot: Snapshot }) {
             <span className="text-xs font-medium uppercase tracking-[0.22em]">AfterHours</span>
           </div>
           <h1 className="max-w-xl text-3xl font-semibold tracking-tight text-white md:text-4xl">
-            The tape after the bell.
+            An AI agent watching the tape after the bell.
           </h1>
           <p className="max-w-2xl text-sm leading-6 text-[var(--muted)] md:text-[15px]">
-            Official NAV versus live Base DEX prices for Coinbase tokenized stocks. When Wall Street is closed,
-            these tokens can still trade. Gap calls coming next — informational only, no payouts, no trading.
+            Coinbase tokenized stocks keep trading on Base after Wall Street closes. The AfterHours Agent compares
+            official NAV with live Aerodrome pool prices, decides which gaps matter, and posts a reasoned call
+            onchain. Anyone can post a call against it. Informational only, no payouts, no trading.
           </p>
         </div>
         <div className="min-w-[260px] rounded-2xl border border-[var(--line-strong)] bg-[var(--bg-elev)] px-4 py-3">
@@ -157,6 +160,12 @@ export function Dashboard({ snapshot }: { snapshot: Snapshot }) {
           </div>
         ))}
       </section>
+
+      {agent ? (
+        <AgentDesk state={agent} tickers={rows.map((r) => r.symbol)} />
+      ) : (
+        <div className="rounded-xl border border-[var(--line)] px-4 py-3 text-sm text-[var(--muted)]">Agent is offline right now.</div>
+      )}
 
       {warnings.length > 0 && (
         <div className="rounded-xl border border-[var(--amber)]/30 bg-[var(--amber-dim)] px-4 py-3 text-sm text-[var(--amber)]">
@@ -229,7 +238,7 @@ export function Dashboard({ snapshot }: { snapshot: Snapshot }) {
         </p>
         <p className="mt-2 num text-[10px]">
           Snapshot {new Date(snapshot.fetchedAt).toISOString()} · sources: api.coinbase.com/v1/tokenized-stocks,
-          Base public RPC (pool slot0), DexScreener (liquidity).
+          Base public RPC (pool slot0), DexScreener (liquidity), AfterHoursBoard events on Base Sepolia.
         </p>
       </footer>
     </div>

@@ -21,8 +21,9 @@ if [[ -z "${PRIVATE_KEY:-}" ]]; then
   exit 1
 fi
 
-# Foundry reads ETH_PRIVATE_KEY; do not pass --private-key (it can leak into logs).
-export ETH_PRIVATE_KEY="$PRIVATE_KEY"
+if [[ -z "${DEPLOYER_ADDRESS:-}" ]]; then echo "DEPLOYER_ADDRESS not set" >&2; exit 1; fi
+# forge script needs an explicit signer. The key is passed from the env var and never printed.
+DEPLOY_KEY="$PRIVATE_KEY"
 unset PRIVATE_KEY
 
 cd "$ROOT/contracts"
@@ -34,6 +35,8 @@ echo "Chain: Base Sepolia (84532)"
 forge script script/Deploy.s.sol:DeployScript \
   --rpc-url "$RPC" \
   --broadcast \
+  --private-key "$DEPLOY_KEY" \
+  --sender "${DEPLOYER_ADDRESS}" \
   --chain 84532
 
 # Try free verification (Sourcify, then Blockscout). Ignore failures.

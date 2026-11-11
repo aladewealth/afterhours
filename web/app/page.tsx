@@ -1,5 +1,6 @@
 import { Dashboard } from "@/components/Dashboard";
 import { buildSnapshot } from "@/lib/snapshot";
+import { buildAgentState, type AgentState } from "@/lib/agentState";
 
 export const dynamic = "force-dynamic";
 
@@ -10,6 +11,15 @@ export default async function Home() {
     snapshot = await buildSnapshot();
   } catch (err) {
     error = err instanceof Error ? err.message : "Could not load market data.";
+  }
+
+  let agent: AgentState | undefined;
+  if (snapshot) {
+    try {
+      agent = await buildAgentState(snapshot);
+    } catch {
+      agent = undefined;
+    }
   }
 
   if (!snapshot) {
@@ -27,7 +37,7 @@ export default async function Home() {
 
   return (
     <main className="flex-1">
-      <Dashboard snapshot={snapshot} />
+      <Dashboard snapshot={snapshot} agent={agent} />
     </main>
   );
 }
