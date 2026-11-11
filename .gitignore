@@ -12,6 +12,7 @@ contracts/broadcast/
 # Secrets and local env
 .env
 .env.*
+.env.deployer
 !.env.example
 
 # OS

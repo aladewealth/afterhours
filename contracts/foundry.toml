@@ -5,4 +5,10 @@ libs = ["lib"]
 solc = "0.8.24"
 optimizer = true
 optimizer_runs = 200
-# See more config options at https://book.getfoundry.sh/reference/config/
+
+[rpc_endpoints]
+base_sepolia = "https://sepolia.base.org"
+
+[etherscan]
+# Optional. Source can also be verified for free via Sourcify or Blockscout (no key).
+base_sepolia = { key = "${BASESCAN_API_KEY}", chain = 84532, url = "https://api-sepolia.basescan.org/api" }
